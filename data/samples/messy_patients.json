@@ -1,0 +1,61 @@
+[
+  {
+    "patient_id": "  MRN: 10492-A  ",
+    "facility": "GENERAL-HOSP",
+    "first_name": "Eleanor",
+    "last_name": "Vane",
+    "dob": "03/04/87",
+    "gender": "female",
+    "encounter_id": "ENC-2024-001",
+    "doc_type": "clinical_note",
+    "effective_date": "2024-02-15 10:30:00",
+    "clinical_note": "Patient presents with chronic migraine symptoms for 3 weeks. Prescribed sumatriptan 50mg."
+  },
+  {
+    "mrn": "DK-5021",
+    "facility_id": "CITY-HEALTH",
+    "given_name": "David",
+    "family_name": "Kim",
+    "date_of_birth": "1982-11-20",
+    "gender": "M",
+    "encounter_id": "ENC-2024-002",
+    "document_type": "lab_report",
+    "effective_date": "2024-02-16 08:00:00",
+    "note": "Comprehensive Metabolic Panel: Glucose 95 mg/dL, Creatinine 0.9 mg/dL, ALT 24 U/L. All within normal range."
+  },
+  {
+    "mrn": "DK-5021",
+    "facility_id": "CITY-HEALTH",
+    "first_name": "David",
+    "last_name": "Kim",
+    "date_of_birth": "1982-11-20",
+    "gender": "male",
+    "encounter_id": "ENC-2024-003",
+    "document_type": "clinical_note",
+    "text_content": "Follow-up visit discussing lab results. Patient reports feeling well; encouraged regular cardiovascular exercise."
+  },
+  {
+    "patient_id": "  MRN: 10492-A  ",
+    "facility": "GENERAL-HOSP",
+    "first_name": "Eleanor",
+    "last_name": "Vane",
+    "dob": "03/04/87",
+    "gender": "female",
+    "encounter_id": "ENC-2024-001",
+    "doc_type": "clinical_note",
+    "effective_date": "2024-02-15 10:30:00",
+    "clinical_note": "Patient presents with chronic migraine symptoms for 3 weeks. Prescribed sumatriptan 50mg."
+  },
+  {
+    "mrn": "10492-A",
+    "facility_id": "CLINIC-EAST",
+    "first_name": "Sarah",
+    "last_name": "Connor",
+    "date_of_birth": "1995-07-14",
+    "gender": "transgender",
+    "encounter_id": "ENC-CONFLICT-01",
+    "document_type": "clinical_note",
+    "effective_date": "2024-02-17 11:00:00",
+    "clinical_note": "Conflict test: Different individual carrying colliding MRN."
+  }
+]

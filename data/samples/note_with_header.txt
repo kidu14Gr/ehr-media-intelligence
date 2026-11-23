@@ -1,0 +1,24 @@
+Patient Name: Robert Neville
+MRN: RN-7703
+DOB: 1978-06-12
+Gender: Male
+Facility: BETH-ISRAEL
+Encounter ID: ENC-2024-998
+Document Type: CLINICAL_NOTE
+Date: 2024-02-18 14:00:00
+
+CHIEF COMPLAINT:
+Follow-up visit for primary hypertension and seasonal allergy symptoms.
+
+HISTORY OF PRESENT ILLNESS:
+The patient is a 45-year-old male presenting for regular cardiovascular check-up.
+Reports adherence to low-sodium diet and prescribed lisinopril therapy.
+
+PHYSICAL EXAMINATION:
+BP: 128/82 mmHg, HR: 72 bpm, SpO2: 99% on room air.
+Lungs clear to auscultation bilaterally. Heart: Regular rate and rhythm, no murmurs.
+
+ASSESSMENT AND PLAN:
+1. Primary Essential Hypertension: Well controlled on current regimen. Continue lisinopril 10mg daily.
+2. Allergic Rhinitis: Add cetirizine 10mg PO daily PRN.
+3. Follow-up in 6 months with repeat basic metabolic panel.

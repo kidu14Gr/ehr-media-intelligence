@@ -1,0 +1,4 @@
+Patient_MRN,Facility,Given_Name,Family_Name,Birth_Date,Sex,Visit_ID,Note_Type,Encounter_Date,Clinical_Narrative
+JW-9901,ST-JUDE,James,Wilson,25/08/1975,Male,V-101,DISCHARGE_SUMMARY,2024-02-10 15:00:00,"Patient admitted for acute non-cardiac chest pain. Troponin negative x3. Discharged in stable condition with primary care follow-up."
+JW-9901,ST-JUDE,James,Wilson,25/08/1975,Male,V-102,LAB_REPORT,2024-02-11 09:30:00,"Post-discharge Lipid Panel: Total Cholesterol 210 mg/dL, HDL 42 mg/dL, LDL 135 mg/dL, Triglycerides 165 mg/dL."
+MG-4420,METRO,Maria,Garcia,09/15/1990,F,V-201,IMAGING,2024-02-12 14:15:00,"MRI Lumbar Spine: Mild L4-L5 disc desiccation without acute nerve root impingement or spinal canal stenosis."
