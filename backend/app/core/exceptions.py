@@ -60,6 +60,11 @@ class LLMAPIError(ClinicalSummaryError):
     pass
 
 
+class LLMClientError(LLMAPIError):
+    """Raised when an embedding or LLM client request fails."""
+    pass
+
+
 class LLMRateLimitError(LLMAPIError):
     """Raised when an LLM provider returns HTTP 429 rate limit."""
     pass
@@ -82,4 +87,19 @@ class SummaryWordCountError(ClinicalSummaryError):
 
 class SummaryCacheError(ClinicalSummaryError):
     """Raised when storing or retrieving summaries from cache fails."""
+    pass
+
+
+class SearchError(IngestionError):
+    """Base exception for semantic search and vector indexing errors."""
+    pass
+
+
+class IndexBackendMismatchError(SearchError):
+    """Raised when active embedding backend differs from the one that built the index."""
+    pass
+
+
+class PatientNotFoundError(SearchError):
+    """Raised when requested patient ID is not found in database."""
     pass

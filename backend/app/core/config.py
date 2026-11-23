@@ -79,6 +79,48 @@ class Settings(BaseSettings):
         description="Strict maximum word limit for clinical narrative (200 words)",
     )
 
+    # Embedding & Vector Search Settings
+    embedding_backend: Literal["local", "huggingface", "mock"] = Field(
+        default="local",
+        alias="EMBEDDING_BACKEND",
+        description="Active embedding backend: 'local' (SentenceTransformers), 'huggingface' (hosted API), or 'mock'",
+    )
+    embedding_model_name: str = Field(
+        default="sentence-transformers/all-MiniLM-L6-v2",
+        alias="EMBEDDING_MODEL_NAME",
+        description="SentenceTransformers model identifier for local inference",
+    )
+    huggingface_api_key: Optional[str] = Field(
+        default=None,
+        alias="HUGGINGFACE_API_KEY",
+        description="API key for Hugging Face Hosted Inference API",
+    )
+    hf_embedding_model: str = Field(
+        default="sentence-transformers/all-MiniLM-L6-v2",
+        alias="HF_EMBEDDING_MODEL",
+        description="Model identifier for Hugging Face Hosted Inference API",
+    )
+    chroma_persist_dir: Path = Field(
+        default=PROJECT_ROOT / "storage" / "chroma",
+        alias="CHROMA_PERSIST_DIR",
+        description="Directory path for persistent Chroma vector store",
+    )
+    cors_origins: list[str] = Field(
+        default=[
+            "http://localhost:3000",
+            "http://localhost:5173",
+            "http://127.0.0.1:3000",
+            "http://127.0.0.1:5173",
+        ],
+        alias="CORS_ORIGINS",
+        description="Permitted CORS origins for frontend client",
+    )
+    min_relevance_score: float = Field(
+        default=0.15,
+        alias="MIN_RELEVANCE_SCORE",
+        description="Minimum relevance score threshold for semantic search results",
+    )
+
     # Cache & Storage Paths
     summary_cache_enabled: bool = Field(
         default=True,
@@ -102,6 +144,8 @@ class Settings(BaseSettings):
             self.database_path = PROJECT_ROOT / self.database_path
         if not self.summary_cache_dir.is_absolute():
             self.summary_cache_dir = PROJECT_ROOT / self.summary_cache_dir
+        if not self.chroma_persist_dir.is_absolute():
+            self.chroma_persist_dir = PROJECT_ROOT / self.chroma_persist_dir
 
     def get_active_model_name(self) -> str:
         """Returns the active model name based on provider configuration."""

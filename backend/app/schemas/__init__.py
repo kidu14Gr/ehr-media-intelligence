@@ -22,6 +22,14 @@ from app.schemas.summary import (
     LLMRawSummaryOutput,
     StructuredClinicalSummary,
 )
+from app.schemas.search import (
+    SearchRequest,
+    PatientSearchResult,
+    SearchResponse,
+    PatientProfileDemographics,
+    LinkedFHIRResource,
+    PatientDetailResponse,
+)
 
 __all__ = [
     "Gender",
@@ -41,4 +49,10 @@ __all__ = [
     "MedicalMediaItem",
     "LLMRawSummaryOutput",
     "StructuredClinicalSummary",
+    "SearchRequest",
+    "PatientSearchResult",
+    "SearchResponse",
+    "PatientProfileDemographics",
+    "LinkedFHIRResource",
+    "PatientDetailResponse",
 ]

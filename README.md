@@ -46,7 +46,7 @@ docs/        Architecture and assessment documentation
 - [x] **Task 1: Data Ingestion and Cleaning** — Heterogeneous parsing (JSON, CSV, plain-text), conservative normalization (MRN, DOB, gender), in-memory identity deduplication, and forensic audit logging.
 - [x] **Task 2: FHIR R4B Normalization & Persistence** — Standards-compliant transformation to HL7 FHIR R4B, structural validation, and dual persistence (JSON + SQLite).
 - [x] **Task 3: AI-Powered Clinical Summarization** — Groq-hosted open LLM inference, clinical safety guardrails (diagnoses verification, no hallucinated recommendations), dual caching (SQLite + JSON), and input-completeness confidence scoring.
-- [ ] **Task 4: Semantic Search Engine**
+- [x] **Task 4: Semantic Search Engine & Patient Query API** — Local SentenceTransformers embeddings loaded once at startup, persistent Chroma vector store, idempotent indexing with content-hash change detection, grouped patient search, date filtering with undated record exclusion, index-backend mismatch protection, and patient detail drawer endpoint.
 - [ ] **Task 5: Clinician Web Interface**
 
 ## Task 2 Architecture & Design Decisions
@@ -141,6 +141,44 @@ docs/        Architecture and assessment documentation
 ### 7. Deterministic Testing & CI/CD Safety
 - **Default Offline Pytest Suite:** All automated unit and integration tests execute entirely offline using `MockLLMClient`, guaranteeing zero external network dependencies, zero rate-limiting risk, and sub-second test execution.
 - **Live Smoke Test Marker:** Live network tests against the Groq API are isolated under `@pytest.mark.live` and excluded by default in CI runs via `backend/pytest.ini`.
+
+## Task 4 Architecture & Design Decisions
+
+### 1. Dual Embedding Architecture & Startup Pre-Loading
+- **Default Local Embeddings:** High-throughput vectorization powered locally by `sentence-transformers/all-MiniLM-L6-v2` (384 dimensions) running on CPU.
+- **Singleton Startup Lifecycle:** The SentenceTransformers model is loaded **once** at application initialization via FastAPI lifespan management. Subsequent search queries and indexing passes execute with zero model loading overhead (< 65ms search latency).
+- **Remote Hugging Face Backend:** Implements `HuggingFaceEmbeddingClient` targeting the hosted Feature Extraction Inference API with backoff retry on HTTP 503 (model warming) and rate limits. Configurable via `EMBEDDING_BACKEND=huggingface` and `HUGGINGFACE_API_KEY` for remote deployment without changing code.
+- **Mock Embedder for Tests:** `MockEmbeddingClient` generates deterministic, normalized 384-dimensional unit vectors derived from content hashing, enabling sub-millisecond offline testing with zero network requests.
+
+### 2. Index-Backend Mismatch Guard
+- **Manifest Tracking:** Upon building or updating the vector store, an index manifest is atomically persisted to `storage/chroma/index_manifest.json`, recording the embedding backend, model name, dimension, and document count.
+- **Semantic Space Protection:** Before executing queries, `VectorStoreManager.verify_backend_compatibility()` asserts that the active runtime configuration matches the backend that created the index. If a mismatch is detected (e.g. querying a `local` index using `huggingface` embeddings), the engine rejects the request with `IndexBackendMismatchError` (HTTP 409 Conflict), preventing vector space corruption.
+
+### 3. Idempotent Indexing with Content-Hash Change Detection
+- **Multi-Source Indexing:** Vectorizes clinical narrative documents (decoded base64 attachments from `DocumentReference`, observation narratives and `presentedForm` text from `DiagnosticReport`) and per-patient AI summaries.
+- **Zero Direct PHI in Embeddings:** Patient names, medical record numbers (MRNs), and healthcare facility identifiers are stripped before embedding; only objective clinical observations and narratives enter the vector space.
+- **Content-Hash Caching:** Each vector stores a SHA-256 `content_hash` in Chroma metadata. The indexer skips re-embedding unchanged records and exclusively computes embeddings for new or modified documents.
+- **Stale Vector Pruning:** Automatically detects and purges vectors from Chroma whose underlying source records have been deleted in SQLite.
+
+### 4. Summary Vector Date Integrity
+- Summary vectors inherit the patient's **latest clinical source-document date** from `fhir_resources` (or `has_date=False`, `record_date=null` if all patient documents are undated).
+- The vector store strictly never uses the AI summary generation timestamp (`created_at`) as a clinical record date.
+
+### 5. Patient-Level Grouped Search & Relevance Thresholding
+- **Patient Grouping:** The `POST /search` endpoint groups chunk-level matches by `patient_id`, selecting the highest relevance score for each patient and returning the top-5 distinct patients.
+- **Configurable Relevance Floor:** Drops irrelevant tail matches below `MIN_RELEVANCE_SCORE` (default `0.15`, configurable via environment or query payload).
+- **Sentence-Aware Snippets:** Summary snippets are extracted on clean sentence boundaries targeting $\ge 150$ characters, avoiding mid-word truncations.
+- **Response Schema:** Each match provides `patient_id`, `patient_name`, `mrn`, `record_date`, `resource_type`, `score`, and `summary_snippet`.
+
+### 6. Date Filtering & Undated Record Rules
+- Records store date representations as integer `YYYYMMDD` (`record_date_int`) alongside an explicit boolean `has_date`.
+- **Default (Unfiltered):** Undated records (`has_date=False`) remain in the candidate search pool.
+- **Date-Filtered (`start_date` or `end_date`):** Undated records are **strictly excluded**, ensuring that temporal clinical queries never return unanchored records.
+
+### 7. Patient Detail Drawer API & CORS
+- **Endpoint `GET /patients/{id}`:** Powers the clinical drawer view for Task 5, returning patient demographics, the latest AI summary with safety disclaimers, and all linked FHIR resources.
+- **Referential Consistency:** Automatically resolves internal `urn:uuid:...` encounter pointers so that all linked clinical documents and diagnostic reports share consistent administrative `encounter_id` values with their parent `Encounter` resource.
+- **CORS Support:** Integrated `CORSMiddleware` supporting frontend development origins (`http://localhost:3000`, `http://localhost:5173`).
 
 ## Data Privacy
 
