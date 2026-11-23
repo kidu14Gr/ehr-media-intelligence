@@ -21,7 +21,8 @@ logger = logging.getLogger(__name__)
 
 
 def sanitize_clinical_text(text: str) -> str:
-    """Strips demographic header lines (Patient:, MRN:, DOB:, Facility:) from text."""
+    """Strips demographic header lines (Patient:, MRN:, DOB:, Facility:), system IDs, and raw timestamps."""
+    from app.ai.sanitizer import sanitize_clinical_identifiers_and_timestamps
     clean_lines = []
     for line in text.splitlines():
         stripped = line.strip().lower()
@@ -31,7 +32,8 @@ def sanitize_clinical_text(text: str) -> str:
         ):
             continue
         clean_lines.append(line)
-    return "\n".join(clean_lines).strip()
+    text_cleaned = "\n".join(clean_lines).strip()
+    return sanitize_clinical_identifiers_and_timestamps(text_cleaned) or ""
 
 
 def parse_date_to_int(effective_date: Optional[str]) -> tuple[bool, str, int]:
@@ -54,10 +56,15 @@ def parse_date_to_int(effective_date: Optional[str]) -> tuple[bool, str, int]:
 
 
 def extract_sentence_aware_snippet(text: str, min_chars: int = 150) -> str:
-    """Extracts sentence-aware excerpt of at least min_chars without cutting mid-sentence."""
+    """Extracts sentence-aware excerpt of at least min_chars without cutting mid-sentence.
+
+    Sanitizes system identifiers and raw timestamps per clinical privacy rules.
+    """
     if not text:
         return ""
-    clean = text.replace("\n", " ").strip()
+    from app.ai.sanitizer import sanitize_clinical_identifiers_and_timestamps
+    sanitized = sanitize_clinical_identifiers_and_timestamps(text) or ""
+    clean = sanitized.replace("\n", " ").strip()
     clean = re.sub(r"\s+", " ", clean)
     if len(clean) <= min_chars:
         return clean

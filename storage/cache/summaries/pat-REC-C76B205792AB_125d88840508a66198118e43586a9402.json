@@ -1,10 +1,10 @@
 {
-  "summary_id": "sum-a4a4d4657c85",
+  "summary_id": "sum-0625455d3a1d",
   "patient_id": "pat-REC-C76B205792AB",
   "content_hash": "125d88840508a66198118e43586a9402fd489b06e443ef41f61b2405b77fd945",
-  "prompt_version": "v1.2",
+  "prompt_version": "v1.3",
   "model_used": "openai/gpt-oss-120b",
-  "generated_at": "2026-11-23T12:34:39.240046Z",
+  "generated_at": "2026-11-23T18:45:35.280711Z",
   "chief_concern": "Follow-up visit for primary hypertension and seasonal allergy symptoms",
   "documented_diagnoses": [
     "Primary Essential Hypertension",
@@ -20,8 +20,8 @@
   ],
   "recent_medical_media": [],
   "notable_anomalies": [],
-  "narrative_summary": "The patient, a 48-year-old male, presented for a follow-up visit for primary hypertension and seasonal allergy symptoms. He reports adherence to a low-sodium diet and lisinopril therapy. Physical examination showed blood pressure 128/82 mmHg, heart rate 72 bpm, SpO2 99% on room air. Lungs were clear to auscultation bilaterally. Cardiac exam revealed regular rate and rhythm with no murmurs. Assessment documented primary essential hypertension, described as well controlled on current regimen, and allergic rhinitis, for which cetirizine 10 mg PO daily PRN was added. Follow-up in six months with repeat basic metabolic panel was planned. Interpretation: Vital signs and exam findings indicate stable, well‑controlled hypertension and no acute cardiopulmonary abnormalities; allergic rhinitis remains active but manageable.",
-  "word_count": 116,
+  "narrative_summary": "The patient, a 48-year-old male, presented for a follow-up visit for primary hypertension and seasonal allergy symptoms. He reports adherence to a low-sodium diet and lisinopril therapy. Vital signs were BP 128/82 mmHg, HR 72 bpm, SpO2 99% on room air. Physical examination revealed lungs clear to auscultation bilaterally and a regular heart rate and rhythm without murmurs. Assessment documented primary essential hypertension, described as well controlled on current regimen, and allergic rhinitis. The plan includes continuation of lisinopril 10 mg daily, addition of cetirizine 10 mg PO daily as needed, and a follow‑up in six months with repeat basic metabolic panel. Interpretation: Blood pressure is within target range, indicating effective hypertension control; lung and cardiac examinations are unremarkable, and allergic rhinitis is being addressed with antihistamine therapy.",
+  "word_count": 128,
   "word_count_warning": null,
   "confidence_score": 0.9,
   "confidence_reasons": [

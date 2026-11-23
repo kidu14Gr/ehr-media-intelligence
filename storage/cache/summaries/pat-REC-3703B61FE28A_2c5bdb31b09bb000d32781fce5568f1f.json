@@ -1,19 +1,18 @@
 {
-  "summary_id": "sum-b6ad1903876e",
+  "summary_id": "sum-ef6063b7d3f5",
   "patient_id": "pat-REC-3703B61FE28A",
   "content_hash": "2c5bdb31b09bb000d32781fce5568f1f0692997d7a47f383158713b6f4b0f005",
-  "prompt_version": "v1.2",
+  "prompt_version": "v1.3",
   "model_used": "openai/gpt-oss-120b",
-  "generated_at": "2026-11-23T12:34:05.345473Z",
-  "chief_concern": null,
+  "generated_at": "2026-11-23T18:45:03.731494Z",
+  "chief_concern": "Follow-up visit discussing lab results",
   "documented_diagnoses": [],
   "unverified_or_flagged_diagnoses": [],
   "key_findings": [
     "Glucose 95 mg/dL",
     "Creatinine 0.9 mg/dL",
     "ALT 24 U/L",
-    "All within normal range",
-    "Patient reports feeling well"
+    "All within normal range"
   ],
   "recent_medical_media": [
     {
@@ -24,8 +23,8 @@
     }
   ],
   "notable_anomalies": [],
-  "narrative_summary": "The patient presented for routine evaluation. Laboratory testing included a comprehensive metabolic panel performed on 2024-02-16. Results showed glucose 95 mg/dL, creatinine 0.9 mg/dL, and ALT 24 U/L, all reported within normal limits. The patient reports feeling well. No abnormal findings were identified. Interpretation: These laboratory values are within expected reference ranges, indicating stable metabolic status.",
-  "word_count": 56,
+  "narrative_summary": "The patient is a 44-year-old male presenting for a follow-up visit discussing lab results. He reports feeling well. The clinician encouraged regular cardiovascular exercise. Laboratory testing performed on 2024-02-16 included a comprehensive metabolic panel showing glucose 95 mg/dL, creatinine 0.9 mg/dL, and ALT 24 U/L, all within normal range. Interpretation: The normal metabolic panel suggests stable metabolic function, and the patient’s reported well-being is consistent with these findings.",
+  "word_count": 68,
   "word_count_warning": null,
   "confidence_score": 0.85,
   "confidence_reasons": [

@@ -64,7 +64,7 @@ class Settings(BaseSettings):
 
     # Prompt & Word Count Controls
     prompt_version: str = Field(
-        default="v1.0",
+        default="v1.3",
         alias="PROMPT_VERSION",
         description="Prompt template version tag (included in cache key)",
     )
@@ -116,7 +116,7 @@ class Settings(BaseSettings):
         description="Permitted CORS origins for frontend client",
     )
     min_relevance_score: float = Field(
-        default=0.15,
+        default=0.30,
         alias="MIN_RELEVANCE_SCORE",
         description="Minimum relevance score threshold for semantic search results",
     )

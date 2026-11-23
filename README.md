@@ -35,10 +35,9 @@ The platform processes heterogeneous EHR documents, cleans and normalizes clinic
 
 ```text
 backend/     Python API and application logic
-frontend/    React clinician dashboard
+frontend/    Clinician web interface (vanilla ES6, Tailwind CSS, served via FastAPI)
 data/        Sample, uploaded, and processed documents
 storage/     Local database and vector persistence
-docs/        Architecture and assessment documentation
 ```
 
 ## Development Status
@@ -220,7 +219,7 @@ docs/        Architecture and assessment documentation
 
 ### 6. Automated Verification Suite
 - **Static Route & Asset Delivery:** Validated via `TestClient` in `tests/integration/test_frontend_routes.py`.
-- **End-to-End Headless Browser Smoke Test:** Automated with Playwright Chromium in `tests/integration/test_browser_smoke.py`, testing page load, search execution, drawer slide-out, Escape key dismissal, and focus restoration.
+- **Search & Drawer Data Contracts:** Validated via `tests/integration/test_search_api.py` and `tests/integration/test_v13_quality_and_search.py`.
 
 ## Data Privacy
 

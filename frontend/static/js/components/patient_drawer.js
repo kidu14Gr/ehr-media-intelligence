@@ -76,18 +76,18 @@ export function initPatientDrawer({ onClose }) {
   // Tab switching
   tabBtnSummary.addEventListener("click", () => {
     tabBtnSummary.setAttribute("aria-selected", "true");
-    tabBtnSummary.className = "py-3 border-b-2 border-teal-700 dark:border-teal-400 font-semibold text-teal-800 dark:text-teal-300 focus:outline-none";
+    tabBtnSummary.className = "py-3 border-b-2 border-teal-700 dark:border-teal-400 font-semibold text-teal-800 dark:text-teal-300 focus:outline-none cursor-pointer";
     tabBtnFhir.setAttribute("aria-selected", "false");
-    tabBtnFhir.className = "py-3 border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 focus:outline-none";
+    tabBtnFhir.className = "py-3 border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 focus:outline-none cursor-pointer";
     tabPaneSummary.classList.remove("hidden");
     tabPaneFhir.classList.add("hidden");
   });
 
   tabBtnFhir.addEventListener("click", () => {
     tabBtnFhir.setAttribute("aria-selected", "true");
-    tabBtnFhir.className = "py-3 border-b-2 border-teal-700 dark:border-teal-400 font-semibold text-teal-800 dark:text-teal-300 focus:outline-none";
+    tabBtnFhir.className = "py-3 border-b-2 border-teal-700 dark:border-teal-400 font-semibold text-teal-800 dark:text-teal-300 focus:outline-none cursor-pointer";
     tabBtnSummary.setAttribute("aria-selected", "false");
-    tabBtnSummary.className = "py-3 border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 focus:outline-none";
+    tabBtnSummary.className = "py-3 border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 focus:outline-none cursor-pointer";
     tabPaneFhir.classList.remove("hidden");
     tabPaneSummary.classList.add("hidden");
   });
@@ -134,12 +134,6 @@ export function openPatientDrawer(detail, triggerElement = null) {
 
   const genderBadge = document.getElementById("drawer-gender-badge");
   genderBadge.textContent = p.gender ? p.gender.toUpperCase() : "UNKNOWN";
-
-  // AI Disclaimer & Meta
-  document.getElementById("drawer-model-used").textContent = s.model_used || "Configured LLM";
-  document.getElementById("drawer-prompt-version").textContent = s.prompt_version || "v1.2";
-  const confText = typeof s.confidence_score === "number" ? `${Math.round(s.confidence_score * 100)}%` : "N/A";
-  document.getElementById("drawer-confidence-score").textContent = confText;
 
   // Chief Concern
   const chiefConcernEl = document.getElementById("drawer-chief-concern");
@@ -312,7 +306,14 @@ DISCLAIMER: ${s.disclaimer || ""}`;
   } else {
     for (const res of linked) {
       const rCfg = getResourceTypeConfig(res.resource_type);
-      const isResUndated = !res.effective_date;
+      
+      // UI Fix 7: Show "n/a" instead of "Undated" for Patient and Encounter resources
+      let dateDisplay;
+      if (res.resource_type === "Patient" || res.resource_type === "Encounter") {
+        dateDisplay = "n/a";
+      } else {
+        dateDisplay = res.effective_date ? formatClinicalDate(res.effective_date) : "Undated";
+      }
 
       const fhirCard = el(
         "div",
@@ -331,7 +332,19 @@ DISCLAIMER: ${s.disclaimer || ""}`;
                 ? el("p", { className: "text-[11px] font-mono text-slate-500" }, `Encounter: ${res.encounter_id}`)
                 : null,
             ]),
-            el("span", { className: "text-xs font-mono text-slate-500" }, isResUndated ? "Undated" : formatClinicalDate(res.effective_date)),
+            el(
+              "span",
+              {
+                className: `text-xs font-mono ${
+                  dateDisplay === "n/a"
+                    ? "text-slate-400 dark:text-slate-500 italic"
+                    : dateDisplay === "Undated"
+                    ? "text-amber-700 dark:text-amber-400 font-semibold"
+                    : "text-slate-500 dark:text-slate-400"
+                }`,
+              },
+              dateDisplay
+            ),
           ]),
 
           // Collapsible JSON Inspector

@@ -18,6 +18,7 @@ import uuid
 from app.ai.cache import ClinicalSummaryCache
 from app.ai.extractor import PatientClinicalContext, PatientContextExtractor
 from app.ai.llm_client import BaseLLMClient, get_llm_client
+from app.ai.sanitizer import sanitize_clinical_identifiers_and_timestamps
 from app.ai.prompt_templates import (
     CLINICAL_SUMMARY_SYSTEM_PROMPT,
     PROMPT_VERSION,
@@ -102,12 +103,23 @@ class ClinicalSummarizer:
             anomalies=raw_output.notable_anomalies,
         )
 
-        # 9. Clean up chief concern (null when missing)
+        # 9. Clean up chief concern (null when missing) and sanitize identifiers/timestamps
         chief_concern = raw_output.chief_concern
         if chief_concern and chief_concern.strip().lower() in ("null", "none", "n/a", "not documented", "unspecified", "not specified"):
             chief_concern = None
         elif chief_concern:
-            chief_concern = chief_concern.strip()
+            chief_concern = sanitize_clinical_identifiers_and_timestamps(chief_concern.strip())
+            if not chief_concern or chief_concern.lower() in ("null", "none", "n/a", "not documented", "unspecified", "not specified"):
+                chief_concern = None
+
+        # Sanitize narrative_summary and key_findings of system identifiers and raw timestamps
+        final_narrative = sanitize_clinical_identifiers_and_timestamps(final_narrative)
+        word_count = len(final_narrative.split())
+        clean_key_findings = [
+            sanitize_clinical_identifiers_and_timestamps(kf)
+            for kf in raw_output.key_findings
+            if sanitize_clinical_identifiers_and_timestamps(kf)
+        ]
 
         # 10. Build final StructuredClinicalSummary
         summary = StructuredClinicalSummary(
@@ -120,7 +132,7 @@ class ClinicalSummarizer:
             chief_concern=chief_concern,
             documented_diagnoses=documented,
             unverified_or_flagged_diagnoses=flagged,
-            key_findings=raw_output.key_findings,
+            key_findings=clean_key_findings,
             recent_medical_media=raw_output.recent_medical_media,
             notable_anomalies=raw_output.notable_anomalies,
             narrative_summary=final_narrative,

@@ -1,23 +1,28 @@
 {
-  "summary_id": "sum-d9fea4eb8739",
+  "summary_id": "sum-308c9d6a7dca",
   "patient_id": "pat-REC-64A686188164",
   "content_hash": "9055011bec6f6c6bf43b736cacc0b1c7213f7e15921d607367905afd5272915c",
-  "prompt_version": "v1.2",
+  "prompt_version": "v1.3",
   "model_used": "openai/gpt-oss-120b",
-  "generated_at": "2026-11-23T12:34:10.670924Z",
-  "chief_concern": "chronic migraine symptoms",
+  "generated_at": "2026-11-23T18:45:11.704588Z",
+  "chief_concern": "chronic migraine symptoms for 3 weeks",
   "documented_diagnoses": [],
   "unverified_or_flagged_diagnoses": [],
   "key_findings": [
     "Chronic migraine symptoms for 3 weeks",
-    "Prescribed sumatriptan 50mg",
-    "Age 39 years",
-    "Female gender"
+    "Prescribed sumatriptan 50mg"
   ],
-  "recent_medical_media": [],
+  "recent_medical_media": [
+    {
+      "modality": "Clinical Document",
+      "description": "Clinical Encounter Progress Note",
+      "date": "2024-02-15",
+      "findings": "Chronic migraine symptoms for 3 weeks; sumatriptan 50mg prescribed"
+    }
+  ],
   "notable_anomalies": [],
-  "narrative_summary": "The patient is a 39‑year‑old female (Patient ID pat-REC-64A686188164). On 2024‑02‑15 at 10:30:00+00:00, a Clinical Note (DocumentReference ID docref-DOC-3344E5A14B) recorded that she presented with chronic migraine symptoms that had been present for three weeks. The chief concern documented was chronic migraine symptoms. The note records that sumatriptan 50 mg was prescribed for her migraine symptoms. No additional clinical details, examination findings, or other interventions are documented in the note. Interpretation: The three‑week duration of chronic migraine symptoms indicates an ongoing headache disorder; the prescription of sumatriptan 50 mg reflects standard acute abortive therapy for migraine.",
-  "word_count": 95,
+  "narrative_summary": "Patient, a 39-year-old female, presented on 2024-02-15 with chronic migraine symptoms persisting for three weeks. The clinical note records that sumatriptan 50 mg was prescribed for symptom management. No additional findings, imaging, or laboratory results are documented. Interpretation: The documented three-week duration of chronic migraine symptoms led to initiation of sumatriptan therapy.",
+  "word_count": 52,
   "word_count_warning": null,
   "confidence_score": 0.85,
   "confidence_reasons": [

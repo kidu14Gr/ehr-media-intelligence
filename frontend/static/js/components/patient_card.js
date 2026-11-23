@@ -37,7 +37,7 @@ export function createPatientCard(result, currentQuery, onViewDrawer) {
     "article",
     {
       className:
-        "group relative p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs hover:border-teal-500/50 dark:hover:border-teal-500/50 hover:shadow-md transition-all space-y-3.5 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-transparent",
+        "group relative p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs hover:border-teal-500/50 dark:hover:border-teal-500/50 hover:shadow-md transition-all space-y-3.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:border-transparent",
       tabIndex: 0,
       "aria-labelledby": `patient-name-${result.patient_id}`,
       onKeyDown: (e) => {
@@ -122,12 +122,12 @@ export function createPatientCard(result, currentQuery, onViewDrawer) {
         ),
       ]),
 
-      // AI Summary Snippet with Safe Term Highlighting
+      // AI Summary Snippet with Safe Term Highlighting (Non-italic, WCAG AA compliant)
       el(
         "div",
         {
           className:
-            "text-xs leading-relaxed text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-lg border border-slate-100 dark:border-slate-800 italic",
+            "text-xs leading-relaxed text-slate-700 dark:text-slate-200 bg-slate-100/80 dark:bg-slate-800/80 p-3 rounded-lg border border-slate-200 dark:border-slate-700 font-normal",
         },
         [highlightMatches(result.summary_snippet, currentQuery)]
       ),
@@ -139,7 +139,7 @@ export function createPatientCard(result, currentQuery, onViewDrawer) {
           {
             type: "button",
             className:
-              "inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-200 hover:bg-teal-100 dark:hover:bg-teal-900 border border-teal-200 dark:border-teal-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600",
+              "inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-200 hover:bg-teal-100 dark:hover:bg-teal-900 border border-teal-200 dark:border-teal-800 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
             onClick: (e) => {
               e.stopPropagation();
               onViewDrawer(result.patient_id, e.currentTarget);

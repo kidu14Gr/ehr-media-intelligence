@@ -225,8 +225,12 @@ function renderResults(state) {
  */
 function resetFilters() {
   document.getElementById("resource-filter-select").value = "All";
-  document.getElementById("date-start-input").value = "";
-  document.getElementById("date-end-input").value = "";
+  const startIn = document.getElementById("date-start-input");
+  const endIn = document.getElementById("date-end-input");
+  startIn.value = "";
+  endIn.value = "";
+  document.getElementById("clear-start-date-btn")?.classList.add("hidden");
+  document.getElementById("clear-end-date-btn")?.classList.add("hidden");
   store.setState({
     resourceType: "All",
     startDate: null,
@@ -288,15 +292,51 @@ function init() {
     triggerSearch(true);
   });
 
-  // Date range inputs
+  // Date range inputs with clear controls
+  const clearStartDateBtn = document.getElementById("clear-start-date-btn");
+  const clearEndDateBtn = document.getElementById("clear-end-date-btn");
+
+  const syncDateClearButtons = () => {
+    if (startDateInput.value) {
+      clearStartDateBtn?.classList.remove("hidden");
+    } else {
+      clearStartDateBtn?.classList.add("hidden");
+    }
+    if (endDateInput.value) {
+      clearEndDateBtn?.classList.remove("hidden");
+    } else {
+      clearEndDateBtn?.classList.add("hidden");
+    }
+  };
+
   startDateInput.addEventListener("change", (e) => {
+    syncDateClearButtons();
     store.setState({ startDate: e.target.value || null });
     triggerSearch(true);
   });
   endDateInput.addEventListener("change", (e) => {
+    syncDateClearButtons();
     store.setState({ endDate: e.target.value || null });
     triggerSearch(true);
   });
+
+  if (clearStartDateBtn) {
+    clearStartDateBtn.addEventListener("click", () => {
+      startDateInput.value = "";
+      syncDateClearButtons();
+      store.setState({ startDate: null });
+      triggerSearch(true);
+    });
+  }
+
+  if (clearEndDateBtn) {
+    clearEndDateBtn.addEventListener("click", () => {
+      endDateInput.value = "";
+      syncDateClearButtons();
+      store.setState({ endDate: null });
+      triggerSearch(true);
+    });
+  }
 
   // Reset filters
   clearFiltersBtn.addEventListener("click", resetFilters);

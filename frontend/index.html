@@ -145,23 +145,45 @@
             </div>
           </div>
 
-          <!-- Date Range Pickers -->
-          <div class="flex items-center space-x-1.5">
-            <label for="date-start-input" class="sr-only">Start Date</label>
-            <input 
-              type="date" 
-              id="date-start-input" 
-              placeholder="YYYY-MM-DD" 
-              class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 py-1.5 px-2.5 rounded-lg text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-            <span class="text-slate-400 text-xs">to</span>
-            <label for="date-end-input" class="sr-only">End Date</label>
-            <input 
-              type="date" 
-              id="date-end-input" 
-              placeholder="YYYY-MM-DD" 
-              class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 py-1.5 px-2.5 rounded-lg text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
+          <!-- Date Range Pickers with Visible Labels & Clear (x) -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="flex items-center space-x-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs">
+              <label for="date-start-input" class="text-slate-500 dark:text-slate-400 font-semibold text-[11px] select-none">From:</label>
+              <input 
+                type="date" 
+                id="date-start-input" 
+                aria-label="Filter clinical records on or after start date"
+                class="bg-transparent text-slate-700 dark:text-slate-200 font-mono text-xs focus:outline-none cursor-pointer"
+              />
+              <button 
+                type="button" 
+                id="clear-start-date-btn" 
+                title="Clear start date" 
+                aria-label="Clear start date" 
+                class="hidden text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer p-0.5"
+              >
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+
+            <div class="flex items-center space-x-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs">
+              <label for="date-end-input" class="text-slate-500 dark:text-slate-400 font-semibold text-[11px] select-none">To:</label>
+              <input 
+                type="date" 
+                id="date-end-input" 
+                aria-label="Filter clinical records on or before end date"
+                class="bg-transparent text-slate-700 dark:text-slate-200 font-mono text-xs focus:outline-none cursor-pointer"
+              />
+              <button 
+                type="button" 
+                id="clear-end-date-btn" 
+                title="Clear end date" 
+                aria-label="Clear end date" 
+                class="hidden text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer p-0.5"
+              >
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
           </div>
 
           <!-- Clear Filters Button -->
@@ -343,31 +365,11 @@
         </div>
 
         <!-- Drawer Scrollable Body -->
-        <div class="flex-1 overflow-y-auto px-6 py-5 drawer-content space-y-6">
+        <div class="flex-1 overflow-y-auto px-5 py-4 drawer-content space-y-4">
           
           <!-- Tab 1: AI Summary & Facts Pane -->
-          <div id="tab-pane-summary" role="tabpanel" aria-labelledby="tab-btn-summary" class="space-y-6">
+          <div id="tab-pane-summary" role="tabpanel" aria-labelledby="tab-btn-summary" class="space-y-4">
             
-            <!-- AI Clinical Disclaimer Callout -->
-            <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-amber-950 dark:text-amber-200" role="note" aria-label="Clinical AI Safety Notice">
-              <div class="flex items-start space-x-3">
-                <svg class="w-5 h-5 text-amber-700 dark:text-amber-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                <div class="text-xs space-y-1">
-                  <p class="font-bold tracking-wide uppercase">AI-Generated Clinical Summary — Decision Support Only</p>
-                  <p id="drawer-disclaimer-text" class="leading-relaxed text-amber-900 dark:text-amber-300">
-                    This summary was synthesized by an artificial intelligence system and must not be used as a substitute for direct medical review or professional clinical judgment. All diagnoses, findings, and clinical information should be verified against original source medical documentation.
-                  </p>
-                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 pt-1 text-[11px] font-mono text-amber-800 dark:text-amber-400">
-                    <span>Model: <strong id="drawer-model-used">--</strong></span>
-                    <span>Prompt: <strong id="drawer-prompt-version">--</strong></span>
-                    <span>Input-Completeness: <strong id="drawer-confidence-score">--</strong></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Chief Concern Section -->
             <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800">
               <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
