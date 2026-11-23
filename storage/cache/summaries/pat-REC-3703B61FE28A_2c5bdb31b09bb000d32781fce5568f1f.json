@@ -1,0 +1,38 @@
+{
+  "summary_id": "sum-b6ad1903876e",
+  "patient_id": "pat-REC-3703B61FE28A",
+  "content_hash": "2c5bdb31b09bb000d32781fce5568f1f0692997d7a47f383158713b6f4b0f005",
+  "prompt_version": "v1.2",
+  "model_used": "openai/gpt-oss-120b",
+  "generated_at": "2026-11-23T12:34:05.345473Z",
+  "chief_concern": null,
+  "documented_diagnoses": [],
+  "unverified_or_flagged_diagnoses": [],
+  "key_findings": [
+    "Glucose 95 mg/dL",
+    "Creatinine 0.9 mg/dL",
+    "ALT 24 U/L",
+    "All within normal range",
+    "Patient reports feeling well"
+  ],
+  "recent_medical_media": [
+    {
+      "modality": "Lab Report",
+      "description": "Comprehensive Metabolic Panel",
+      "date": "2024-02-16",
+      "findings": "Glucose 95 mg/dL, Creatinine 0.9 mg/dL, ALT 24 U/L, all within normal range"
+    }
+  ],
+  "notable_anomalies": [],
+  "narrative_summary": "The patient presented for routine evaluation. Laboratory testing included a comprehensive metabolic panel performed on 2024-02-16. Results showed glucose 95 mg/dL, creatinine 0.9 mg/dL, and ALT 24 U/L, all reported within normal limits. The patient reports feeling well. No abnormal findings were identified. Interpretation: These laboratory values are within expected reference ranges, indicating stable metabolic status.",
+  "word_count": 56,
+  "word_count_warning": null,
+  "confidence_score": 0.85,
+  "confidence_reasons": [
+    "Multi-modal record continuity (both clinical notes and diagnostic reports present).",
+    "Temporal ambiguity: 1 record(s) have unspecified dates.",
+    "No active diagnoses detected; baseline health maintenance profile."
+  ],
+  "disclaimer": "AI-GENERATED CLINICAL SUMMARY — FOR INFORMATIONAL ASSISTANCE ONLY. This summary was synthesized by an artificial intelligence system and must not be used as a substitute for direct medical review or professional clinical judgment. All diagnoses, findings, and clinical information should be verified against original source medical documentation.",
+  "is_cached": false
+}

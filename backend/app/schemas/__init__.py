@@ -16,6 +16,12 @@ from app.schemas.fhir_report import (
     ValidationIssue,
     FHIRValidationReport,
 )
+from app.schemas.summary import (
+    ClinicalAnomaly,
+    MedicalMediaItem,
+    LLMRawSummaryOutput,
+    StructuredClinicalSummary,
+)
 
 __all__ = [
     "Gender",
@@ -31,4 +37,8 @@ __all__ = [
     "IngestionBatchResult",
     "ValidationIssue",
     "FHIRValidationReport",
+    "ClinicalAnomaly",
+    "MedicalMediaItem",
+    "LLMRawSummaryOutput",
+    "StructuredClinicalSummary",
 ]

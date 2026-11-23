@@ -43,3 +43,43 @@ class FHIRValidationError(IngestionError):
 class FHIRStorageError(IngestionError):
     """Raised when persisting FHIR resources to SQLite or JSON fails."""
     pass
+
+
+class ClinicalSummaryError(IngestionError):
+    """Base exception for clinical summarization errors."""
+    pass
+
+
+class LLMConfigurationError(ClinicalSummaryError):
+    """Raised when LLM configuration or credentials are missing or invalid."""
+    pass
+
+
+class LLMAPIError(ClinicalSummaryError):
+    """Raised when an external LLM API returns an unrecoverable error."""
+    pass
+
+
+class LLMRateLimitError(LLMAPIError):
+    """Raised when an LLM provider returns HTTP 429 rate limit."""
+    pass
+
+
+class LLMTimeoutError(LLMAPIError):
+    """Raised when an LLM request exceeds configured timeout."""
+    pass
+
+
+class SummaryParsingError(ClinicalSummaryError):
+    """Raised when an LLM response cannot be parsed or validated against the summary schema."""
+    pass
+
+
+class SummaryWordCountError(ClinicalSummaryError):
+    """Raised when a summary fails strict word count validation (< 200 words)."""
+    pass
+
+
+class SummaryCacheError(ClinicalSummaryError):
+    """Raised when storing or retrieving summaries from cache fails."""
+    pass

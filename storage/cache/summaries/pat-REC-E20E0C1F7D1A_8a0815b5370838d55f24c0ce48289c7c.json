@@ -1,0 +1,34 @@
+{
+  "summary_id": "sum-f2475d5b88e1",
+  "patient_id": "pat-REC-E20E0C1F7D1A",
+  "content_hash": "8a0815b5370838d55f24c0ce48289c7ca08d30363dd0664787a2a2f11cfd112b",
+  "prompt_version": "v1.2",
+  "model_used": "openai/gpt-oss-120b",
+  "generated_at": "2026-11-23T12:34:58.110153Z",
+  "chief_concern": null,
+  "documented_diagnoses": [],
+  "unverified_or_flagged_diagnoses": [],
+  "key_findings": [
+    "Mild L4-L5 disc desiccation without acute nerve root impingement or spinal canal stenosis."
+  ],
+  "recent_medical_media": [
+    {
+      "modality": "MRI",
+      "description": "Lumbar Spine MRI",
+      "date": "2024-02-12",
+      "findings": "Mild L4-L5 disc desiccation without acute nerve root impingement or spinal canal stenosis."
+    }
+  ],
+  "notable_anomalies": [],
+  "narrative_summary": "The patient is a 36-year-old female who underwent lumbar spine MRI on 2024-02-12. Imaging demonstrated mild L4-L5 disc desiccation without acute nerve root impingement or spinal canal stenosis. No other abnormalities were reported. Interpretation: Mild disc desiccation reflects early degenerative changes at L4-L5 but there is no evidence of acute neural compromise or canal narrowing.",
+  "word_count": 55,
+  "word_count_warning": null,
+  "confidence_score": 0.85,
+  "confidence_reasons": [
+    "Single document modality available.",
+    "Full temporal consistency: all documents possess valid clinical dates.",
+    "No active diagnoses detected; baseline health maintenance profile."
+  ],
+  "disclaimer": "AI-GENERATED CLINICAL SUMMARY — FOR INFORMATIONAL ASSISTANCE ONLY. This summary was synthesized by an artificial intelligence system and must not be used as a substitute for direct medical review or professional clinical judgment. All diagnoses, findings, and clinical information should be verified against original source medical documentation.",
+  "is_cached": false
+}

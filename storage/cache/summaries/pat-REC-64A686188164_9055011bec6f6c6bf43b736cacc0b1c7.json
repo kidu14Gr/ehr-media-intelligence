@@ -1,0 +1,30 @@
+{
+  "summary_id": "sum-d9fea4eb8739",
+  "patient_id": "pat-REC-64A686188164",
+  "content_hash": "9055011bec6f6c6bf43b736cacc0b1c7213f7e15921d607367905afd5272915c",
+  "prompt_version": "v1.2",
+  "model_used": "openai/gpt-oss-120b",
+  "generated_at": "2026-11-23T12:34:10.670924Z",
+  "chief_concern": "chronic migraine symptoms",
+  "documented_diagnoses": [],
+  "unverified_or_flagged_diagnoses": [],
+  "key_findings": [
+    "Chronic migraine symptoms for 3 weeks",
+    "Prescribed sumatriptan 50mg",
+    "Age 39 years",
+    "Female gender"
+  ],
+  "recent_medical_media": [],
+  "notable_anomalies": [],
+  "narrative_summary": "The patient is a 39‑year‑old female (Patient ID pat-REC-64A686188164). On 2024‑02‑15 at 10:30:00+00:00, a Clinical Note (DocumentReference ID docref-DOC-3344E5A14B) recorded that she presented with chronic migraine symptoms that had been present for three weeks. The chief concern documented was chronic migraine symptoms. The note records that sumatriptan 50 mg was prescribed for her migraine symptoms. No additional clinical details, examination findings, or other interventions are documented in the note. Interpretation: The three‑week duration of chronic migraine symptoms indicates an ongoing headache disorder; the prescription of sumatriptan 50 mg reflects standard acute abortive therapy for migraine.",
+  "word_count": 95,
+  "word_count_warning": null,
+  "confidence_score": 0.85,
+  "confidence_reasons": [
+    "Single document modality available.",
+    "Full temporal consistency: all documents possess valid clinical dates.",
+    "No active diagnoses detected; baseline health maintenance profile."
+  ],
+  "disclaimer": "AI-GENERATED CLINICAL SUMMARY — FOR INFORMATIONAL ASSISTANCE ONLY. This summary was synthesized by an artificial intelligence system and must not be used as a substitute for direct medical review or professional clinical judgment. All diagnoses, findings, and clinical information should be verified against original source medical documentation.",
+  "is_cached": false
+}

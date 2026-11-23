@@ -1,0 +1,47 @@
+{
+  "summary_id": "sum-ea6e2cb4afa2",
+  "patient_id": "pat-REC-C11B3AC92DB1",
+  "content_hash": "ceebf658f995e553a401c4dc3aa0434dd936afd261c481ae883ca571fe2f0d0a",
+  "prompt_version": "v1.2",
+  "model_used": "openai/gpt-oss-120b",
+  "generated_at": "2026-11-23T12:34:20.014459Z",
+  "chief_concern": "Acute non-cardiac chest pain",
+  "documented_diagnoses": [
+    "Acute non-cardiac chest pain"
+  ],
+  "unverified_or_flagged_diagnoses": [],
+  "key_findings": [
+    "Troponin negative x3",
+    "Discharged in stable condition",
+    "Total Cholesterol 210 mg/dL",
+    "HDL 42 mg/dL",
+    "LDL 135 mg/dL",
+    "Triglycerides 165 mg/dL"
+  ],
+  "recent_medical_media": [
+    {
+      "modality": "Clinical Document",
+      "description": "Hospital Inpatient Discharge Summary",
+      "date": "2024-02-10",
+      "findings": "Troponin negative x3; Discharged in stable condition"
+    },
+    {
+      "modality": "Lab Report",
+      "description": "Post-discharge Lipid Panel",
+      "date": "2024-02-11",
+      "findings": "Total Cholesterol 210 mg/dL, HDL 42 mg/dL, LDL 135 mg/dL, Triglycerides 165 mg/dL"
+    }
+  ],
+  "notable_anomalies": [],
+  "narrative_summary": "Patient is a 51-year-old male admitted for acute non-cardiac chest pain. Troponin was negative on three measurements. He was discharged in stable condition with instructions for primary care follow-up. Post-discharge laboratory lipid panel showed total cholesterol 210 mg/dL, HDL 42 mg/dL, LDL 135 mg/dL, and triglycerides 165 mg/dL. Interpretation: The negative troponins support a non-ischemic cause for the chest pain, and the patient’s lipid profile reveals mildly elevated total cholesterol and LDL, suggesting a need for cardiovascular risk assessment.",
+  "word_count": 79,
+  "word_count_warning": null,
+  "confidence_score": 0.95,
+  "confidence_reasons": [
+    "Multi-modal record continuity (both clinical notes and diagnostic reports present).",
+    "Full temporal consistency: all documents possess valid clinical dates.",
+    "All 1 diagnoses substantiated directly from source text."
+  ],
+  "disclaimer": "AI-GENERATED CLINICAL SUMMARY — FOR INFORMATIONAL ASSISTANCE ONLY. This summary was synthesized by an artificial intelligence system and must not be used as a substitute for direct medical review or professional clinical judgment. All diagnoses, findings, and clinical information should be verified against original source medical documentation.",
+  "is_cached": false
+}
