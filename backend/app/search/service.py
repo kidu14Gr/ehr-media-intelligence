@@ -84,13 +84,15 @@ class ClinicalSearchService:
         cursor = conn.cursor()
 
         # Demographics
-        cursor.execute("SELECT patient_id, first_name, last_name, mrn FROM patients")
+        cursor.execute("SELECT patient_id, first_name, last_name, mrn, date_of_birth, gender FROM patients")
         patients_map = {}
         for row in cursor.fetchall():
-            pat_id, first, last, mrn = row
+            pat_id, first, last, mrn, dob, gender = row
             patients_map[pat_id] = {
                 "name": f"{first} {last}".strip(),
                 "mrn": mrn or "Unknown",
+                "date_of_birth": dob,
+                "gender": gender,
             }
 
         # Cached summaries
@@ -202,6 +204,8 @@ class ClinicalSearchService:
                     patient_id=pat_id,
                     patient_name=p_info["name"],
                     mrn=p_info["mrn"],
+                    date_of_birth=p_info.get("date_of_birth"),
+                    gender=p_info.get("gender"),
                     record_date=match["record_date"],
                     resource_type=match["resource_type"],
                     score=match["score"],

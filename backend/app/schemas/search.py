@@ -39,6 +39,8 @@ class PatientSearchResult(BaseModel):
     patient_id: str
     patient_name: str
     mrn: str
+    date_of_birth: Optional[str] = None
+    gender: Optional[str] = None
     record_date: Optional[str] = None
     resource_type: str
     score: float = Field(..., description="Cosine similarity score (0.0 to 1.0)")

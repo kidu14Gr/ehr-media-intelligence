@@ -1,10 +1,13 @@
 """FastAPI application entrypoint for EHR Media Intelligence Platform."""
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.routes.patients import router as patients_router
 from app.api.routes.search import router as search_router
@@ -69,6 +72,19 @@ def create_app() -> FastAPI:
     # Register API routers
     app.include_router(search_router)
     app.include_router(patients_router)
+
+    # Static file serving & Frontend index route
+    frontend_dir = Path(__file__).resolve().parent.parent.parent / "frontend"
+    static_dir = frontend_dir / "static"
+    if static_dir.exists():
+        app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
+    @app.get("/", include_in_schema=False)
+    def serve_frontend_index():
+        index_file = frontend_dir / "index.html"
+        if index_file.exists():
+            return FileResponse(index_file)
+        return {"status": "ok", "message": "EHR Media Intelligence API active."}
 
     @app.get("/health", tags=["system"], summary="Health check endpoint")
     def health_check() -> dict[str, str]:

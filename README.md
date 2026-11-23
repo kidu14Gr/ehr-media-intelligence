@@ -180,6 +180,48 @@ docs/        Architecture and assessment documentation
 - **Referential Consistency:** Automatically resolves internal `urn:uuid:...` encounter pointers so that all linked clinical documents and diagnostic reports share consistent administrative `encounter_id` values with their parent `Encounter` resource.
 - **CORS Support:** Integrated `CORSMiddleware` supporting frontend development origins (`http://localhost:3000`, `http://localhost:5173`).
 
+## Task 5 Architecture & Design Decisions
+
+### 1. Clinician-Facing Interface & Zero-Build Runtime
+- **Architecture:** Built with modern vanilla ES6 modules served directly as static files by FastAPI at `/` (`frontend/index.html`) and `/static` (`frontend/static/`).
+- **Reviewer Ergonomics:** Requires **zero Node.js or npm build steps** at runtime. Evaluators and clinical reviewers simply start the FastAPI application (`uvicorn app.main:create_app`) and open `http://localhost:8000/`. Zero CORS configuration is required because the frontend and API share the exact same origin.
+- **Security & XSS Defense:** All API-provided strings (patient names, clinical notes, summaries, and FHIR payloads) are rendered strictly through an isolated DOM builder (`dom.js`) using `textContent` and `createElement`. Zero raw `innerHTML` is executed with API payloads. Telemetry logs in browser console enforce zero PHI leakage.
+
+### 2. Standalone Tailwind CSS Compilation & Fallback
+- **Standalone Compiled Bundle:** Utility styles are compiled ahead-of-time into `frontend/static/css/tailwind.min.css` (32 KB minified), ensuring 100% offline functionality in air-gapped sandboxes without relying on external CDNs.
+- **Rebuild Command:**
+  ```bash
+  cd ehr-media-intelligence && npx -y tailwindcss@3.4.17 -c frontend/tailwind.config.js -i frontend/static/css/input.css -o frontend/static/css/tailwind.min.css --minify
+  ```
+- **CDN Fallback:** Documented runtime fallback is available via the Tailwind Play CDN script (`<script src="https://cdn.tailwindcss.com"></script>`), dynamically loaded only if the compiled static CSS is absent.
+
+### 3. Real-Time Semantic Search & Grouped Cards
+- **Debounced Fetch:** User keystrokes are debounced at 300ms, with immediate search upon pressing `Enter`.
+- **Request Cancellation:** Uses native `AbortController` to cancel in-flight stale requests when the user continues typing.
+- **Relevance Score & Visual Progress:** Displays the raw relevance score (e.g. `0.73`) alongside a proportional visual score bar. Avoids arbitrary "% match" labels.
+- **Patient Demographic Header:** Cards present patient name, surrogate ID, MRN, and DOB/age (when available from the API).
+- **Explicit Date Badging:** Records with null timestamps display a prominent amber "Undated" badge, while dated records format cleanly in UTC.
+- **Term Highlighting:** Safely highlights matched query words within the sentence-aware summary snippet using DOM `<mark>` elements without innerHTML risks.
+
+### 4. Slide-Over Patient Detail Drawer & Safety Isolation
+- **Slide-Over Experience:** Accessible modal drawer slide-over animated with smooth CSS transitions, respecting `prefers-reduced-motion: reduce`.
+- **AI Safety Banner:** Visually prominent callout identifying the summary as AI-generated for clinical decision support assistance only. Surfaces the underlying model, prompt template version, and input-completeness score.
+- **Fact vs. AI Interpretation Separation:** Separates objective documented findings from the model's clinical synthesis (marked under an `"Interpretation:"` callout with distinct indigo styling).
+- **Conditional Unverified Diagnoses Box:** Clinical safety guard isolating diagnoses proposed by the LLM that were not corroborated verbatim in EHR text. **Renders only when unverified diagnoses exist**; stays completely hidden when the list is empty.
+- **Missing Data Integrity:** Chief concern falls back to an explicit `"Not documented"` indicator when absent from clinical records.
+- **Linked FHIR Resources:** Tabbed compact inspector displaying linked resource type, canonical ID, encounter pointer, and clinical date, with a collapsible formatted JSON preview and 1-click clipboard copy.
+
+### 5. Accessibility & Keyboard Navigation (WCAG 2.1 AA)
+- **Global Shortcut:** Pressing `/` from anywhere on the page focuses the primary search input.
+- **Focus Trapping:** Opening the drawer traps keyboard focus within the panel via cyclic Tab navigation.
+- **Escape to Close & Focus Return:** Pressing `Escape` closes the drawer and restores keyboard focus to the triggering card button.
+- **Screen Reader Announcements:** `aria-live="polite"` status regions announce result counts and query state updates.
+- **Contrast & Dark Mode:** Meets WCAG AA contrast standards ($\ge 4.5:1$ text contrast), with a toggleable dark mode theme persisted in `localStorage`.
+
+### 6. Automated Verification Suite
+- **Static Route & Asset Delivery:** Validated via `TestClient` in `tests/integration/test_frontend_routes.py`.
+- **End-to-End Headless Browser Smoke Test:** Automated with Playwright Chromium in `tests/integration/test_browser_smoke.py`, testing page load, search execution, drawer slide-out, Escape key dismissal, and focus restoration.
+
 ## Data Privacy
 
 Only synthetic patient data is used for development and testing. No real patient information should be committed to this repository.

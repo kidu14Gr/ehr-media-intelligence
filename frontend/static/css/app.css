@@ -1,0 +1,86 @@
+/* Custom clinical styles, print rules, and accessibility enhancements */
+
+@layer utilities {
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid #2563EB !important;
+  outline-offset: 2px !important;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Stylesheet (@media print) */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  
+  /* Hide interactive chrome */
+  header, 
+  nav, 
+  #search-section, 
+  #results-section,
+  #theme-toggle-btn,
+  #close-drawer-btn,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Make drawer full page */
+  #patient-drawer {
+    position: static !important;
+    display: block !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  #drawer-backdrop {
+    display: none !important;
+  }
+
+  .drawer-content {
+    padding: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Print clean contrast */
+  .badge {
+    border: 1px solid #666666 !important;
+    color: #000000 !important;
+    background: #EEEEEE !important;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.5);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.8);
+}
