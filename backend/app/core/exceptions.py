@@ -1,7 +1,7 @@
-"""Custom domain exceptions for EHR ingestion pipeline."""
+"""Custom domain exceptions for EHR platform."""
 
 class IngestionError(Exception):
-    """Base exception for all ingestion-related errors."""
+    """Base exception for all platform errors."""
     pass
 
 
@@ -27,4 +27,19 @@ class IdentityConflictError(IngestionError):
 
 class UnassignedDocumentError(IngestionError):
     """Raised when clinical narrative document cannot be linked to any patient."""
+    pass
+
+
+class FHIRConversionError(IngestionError):
+    """Raised when an intermediate record cannot be transformed into FHIR R4."""
+    pass
+
+
+class FHIRValidationError(IngestionError):
+    """Raised when a generated FHIR bundle or resource violates specification or referential integrity."""
+    pass
+
+
+class FHIRStorageError(IngestionError):
+    """Raised when persisting FHIR resources to SQLite or JSON fails."""
     pass

@@ -12,6 +12,10 @@ from app.schemas.audit import (
     QuarantinedRecord,
     IngestionBatchResult,
 )
+from app.schemas.fhir_report import (
+    ValidationIssue,
+    FHIRValidationReport,
+)
 
 __all__ = [
     "Gender",
@@ -25,4 +29,6 @@ __all__ = [
     "AuditLogEntry",
     "QuarantinedRecord",
     "IngestionBatchResult",
+    "ValidationIssue",
+    "FHIRValidationReport",
 ]
